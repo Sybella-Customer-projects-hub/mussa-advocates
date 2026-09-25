@@ -36,10 +36,15 @@ npm run dev
 Useful checks:
 
 ```bash
+npm run format
+npm run format:check
 npm run typecheck
 npm run lint
 npm run build
 ```
+
+Prettier keeps source and documentation consistently formatted with a
+100-column print width.
 
 ## Content and contact details
 

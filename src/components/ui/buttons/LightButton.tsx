@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ReactNode } from 'react';
 
 interface LightButtonProps {
   children: ReactNode;
@@ -6,5 +6,9 @@ interface LightButtonProps {
 }
 
 export default function LightButton({ children, onClick }: LightButtonProps) {
-  return <button className="light-button" onClick={onClick}>{children}</button>;
+  return (
+    <button className="light-button" onClick={onClick}>
+      {children}
+    </button>
+  );
 }

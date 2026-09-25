@@ -1,5 +1,5 @@
-import HomeSections from "../../sections/home/HomeSections";
-import { type Page } from "../../data/siteContent";
+import HomeSections from '../../sections/home/HomeSections';
+import { type Page } from '../../data/siteContent';
 
 interface HomePageProps {
   onNavigate: (page: Page) => void;

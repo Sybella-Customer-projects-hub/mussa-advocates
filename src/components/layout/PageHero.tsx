@@ -1,5 +1,5 @@
-import { type Page } from "../../data/siteContent";
-import TopNav from "../navigation/TopNav";
+import { type Page } from '../../data/siteContent';
+import TopNav from '../navigation/TopNav';
 
 interface PageHeroProps {
   page: Page;
@@ -10,11 +10,34 @@ interface PageHeroProps {
   onOpenMenu: () => void;
 }
 
-export default function PageHero({ page, title, subtitle, image, onNavigate, onOpenMenu }: PageHeroProps) {
+export default function PageHero({
+  page,
+  title,
+  subtitle,
+  image,
+  onNavigate,
+  onOpenMenu,
+}: PageHeroProps) {
   return (
-    <section className="detail-hero" style={image ? { backgroundImage: `linear-gradient(90deg, rgba(1,11,13,.84), rgba(1,11,13,.2)), url(${image})` } : undefined}>
+    <section
+      className="detail-hero"
+      style={
+        image
+          ? {
+              backgroundImage: [
+                'linear-gradient(90deg, rgba(1,11,13,.84), rgba(1,11,13,.2))',
+                `url(${image})`,
+              ].join(', '),
+            }
+          : undefined
+      }
+    >
       <TopNav page={page} onNavigate={onNavigate} onOpenMenu={onOpenMenu} light={!!image} />
-      <div className="detail-title"><p className="kicker">Moussa Advocates</p><h1>{title}</h1><p>{subtitle}</p></div>
+      <div className="detail-title">
+        <p className="kicker">Moussa Advocates</p>
+        <h1>{title}</h1>
+        <p>{subtitle}</p>
+      </div>
     </section>
   );
 }
