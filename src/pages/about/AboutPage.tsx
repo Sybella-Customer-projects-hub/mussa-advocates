@@ -56,7 +56,7 @@ export default function AboutPage({ onNavigate, onOpenMenu }: { onNavigate: (pag
         <div className="about-intro-copy">
           <p className="kicker">Moussa Advocates · Kigali, Rwanda</p>
           <h1>Good counsel starts with a better <em>conversation.</em></h1>
-          <p>Five questions. Five answers. A closer look at the people and principles behind the work.</p>
+          <p>Meet our team, explore our services and learn about our mission, vision, location and standards of conduct.</p>
           <a className="about-scroll" href="#about-stories">Explore our story <ArrowDown size={14} /></a>
         </div>
       </section>
@@ -64,7 +64,7 @@ export default function AboutPage({ onNavigate, onOpenMenu }: { onNavigate: (pag
       <section className="about-stories" id="about-stories">
         <div className="about-section-heading">
           <div><p className="kicker">Take a closer look</p><h2>What would you like to know?</h2></div>
-          <p>Select a question, then choose when you are ready to see our answer.</p>
+          <p>Explore how we work, what guides our practice and the team behind it.</p>
         </div>
         <div className="story-layout">
           <div className="story-menu" role="tablist" aria-label="About Moussa Advocates">

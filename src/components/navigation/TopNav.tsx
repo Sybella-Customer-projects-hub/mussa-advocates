@@ -17,7 +17,7 @@ export default function TopNav({ page, onNavigate, onOpenMenu, light = false }: 
         <button className="brand-button" onClick={() => onNavigate("home")} aria-label="Moussa Advocates home"><Logo light={light} /></button>
         <nav className="desktop-nav" aria-label="Main navigation">
           {navItems.map((item) => (
-            <div className="nav-group" key={item.page}>
+            <div className="nav-group" key={item.label}>
               <button className={page === item.page ? "active" : ""} onClick={() => onNavigate(item.page)} aria-haspopup={item.children ? "true" : undefined}>
                 {item.label}
               </button>

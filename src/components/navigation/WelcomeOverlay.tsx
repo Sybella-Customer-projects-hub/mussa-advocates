@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ArrowRight, BriefcaseBusiness, CircleUserRound, FileText, Mail, Search, ShieldCheck, X } from "lucide-react";
-import { articles, services, type Page } from "../../data/siteContent";
+import type { LucideIcon } from "lucide-react";
+import { articles, navItems, services, type Page } from "../../data/siteContent";
 import Logo from "../shared/Logo";
 
 interface WelcomeOverlayProps {
@@ -8,12 +9,17 @@ interface WelcomeOverlayProps {
   onNavigate: (page: Page, section?: string) => void;
 }
 
-const choices = [
+const choices: { label: string; detail: string; keywords: string; page: Page; section?: string; icon: LucideIcon }[] = [
   { label: "Our Services", detail: "Explore legal services", keywords: services.join(" "), page: "services" as Page, icon: BriefcaseBusiness },
   { label: "About Us", detail: "Learn more about us", keywords: "Moussa Advocates Rwanda approach people", page: "about" as Page, icon: CircleUserRound },
-  { label: "Our Team", detail: "Meet the team", keywords: "team people advocates", page: "about" as Page, section: "team", icon: CircleUserRound },
-  { label: "Mission and vision", detail: "Our purpose and vision", keywords: "mission vision values", page: "about" as Page, section: "mission", icon: CircleUserRound },
-  { label: "Location and conduct", detail: "Where we work and our standards", keywords: "location Kigali conduct ethics", page: "about" as Page, section: "location", icon: CircleUserRound },
+  ...navItems.flatMap((item) => item.children?.map((child) => ({
+    label: child.label,
+    detail: item.label === "About" ? `About Moussa Advocates · ${child.label}` : `Legal process · ${child.label}`,
+    keywords: `${item.label} ${child.label} ${child.section ?? ""}`,
+    page: child.page,
+    section: child.section,
+    icon: item.label === "About" ? CircleUserRound : FileText,
+  })) ?? []),
   { label: "Legal Process", detail: "Virtual or in-person meetings", keywords: "legal process virtual in person consultation", page: "legal-process" as Page, icon: FileText },
   { label: "Legal Insights", detail: "Read latest updates", keywords: articles.map((article) => article.title).join(" "), page: "insights" as Page, icon: FileText },
   { label: "Get Legal Help", detail: "Start your case", keywords: "consultation advice legal matter", page: "help" as Page, icon: ShieldCheck },
