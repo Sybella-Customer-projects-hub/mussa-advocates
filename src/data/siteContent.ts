@@ -1,4 +1,11 @@
-export type Page = "home" | "about" | "services" | "insights" | "contact" | "help" | "service-detail" | "article";
+export type Page = "home" | "about" | "services" | "legal-process" | "insights" | "contact" | "help" | "service-detail" | "article";
+
+export interface NavItem {
+  label: string;
+  page: Page;
+  section?: string;
+  children?: NavItem[];
+}
 
 export interface Article {
   title: string;
@@ -14,9 +21,29 @@ export const images = {
   writing: "https://images.pexels.com/photos/8112113/pexels-photo-8112113.jpeg?auto=compress&cs=tinysrgb&w=1200",
 } as const;
 
-export const navItems: { label: string; page: Page }[] = [
+export const navItems: NavItem[] = [
   { label: "Home", page: "home" },
-  { label: "About", page: "about" },
+  {
+    label: "About",
+    page: "about",
+    children: [
+      { label: "Team", page: "about", section: "team" },
+      { label: "Services", page: "services" },
+      { label: "Overview", page: "about", section: "overview" },
+      { label: "Mission", page: "about", section: "mission" },
+      { label: "Vision", page: "about", section: "vision" },
+      { label: "Location", page: "about", section: "location" },
+      { label: "Conduct", page: "about", section: "conduct" },
+    ],
+  },
+  {
+    label: "Legal Process",
+    page: "legal-process",
+    children: [
+      { label: "Virtual", page: "legal-process", section: "virtual" },
+      { label: "In person", page: "legal-process", section: "in-person" },
+    ],
+  },
   { label: "Services", page: "services" },
   { label: "Insights", page: "insights" },
   { label: "Contact", page: "contact" },
