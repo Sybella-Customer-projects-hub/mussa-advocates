@@ -92,7 +92,7 @@ export default function AboutPage({
           <h1>
             Good counsel starts with a better <em>conversation.</em>
           </h1>
-          <p>Meet our team, explore our services and learn about our mission, vision, location and standards of conduct.</p>
+          <p>A closer look at the people and principles behind the work.</p>
           <a className="about-scroll" href="#about-stories">
             Explore our story <ArrowDown size={14} />
           </a>
@@ -105,7 +105,6 @@ export default function AboutPage({
             <p className="kicker">Take a closer look</p>
             <h2>What would you like to know?</h2>
           </div>
-          <p>Explore how we work, what guides our practice and the team behind it.</p>
         </div>
         <div className="story-layout">
           <div className="story-menu" role="tablist" aria-label="About Moussa Advocates">
