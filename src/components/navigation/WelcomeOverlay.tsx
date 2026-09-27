@@ -9,48 +9,77 @@ import {
   ShieldCheck,
   X,
 } from 'lucide-react';
-import { articles, services, type Page } from '../../data/siteContent';
+import type { LucideIcon } from 'lucide-react';
+import { articles, navItems, services, type Page } from '../../data/siteContent';
 import Logo from '../shared/Logo';
 
 interface WelcomeOverlayProps {
   onClose: () => void;
-  onNavigate: (page: Page) => void;
+  onNavigate: (page: Page, section?: string) => void;
 }
 
-const choices = [
+const choices: {
+  label: string;
+  detail: string;
+  keywords: string;
+  page: Page;
+  section?: string;
+  icon: LucideIcon;
+}[] = [
   {
     label: 'Our Services',
     detail: 'Explore legal services',
     keywords: services.join(' '),
-    page: 'services' as Page,
+    page: 'services',
     icon: BriefcaseBusiness,
   },
   {
     label: 'About Us',
     detail: 'Learn more about us',
     keywords: 'Moussa Advocates Rwanda approach people',
-    page: 'about' as Page,
+    page: 'about',
     icon: CircleUserRound,
+  },
+  ...navItems.flatMap(
+    (item) =>
+      item.children?.map((child) => ({
+        label: child.label,
+        detail:
+          item.label === 'About'
+            ? `About Moussa Advocates · ${child.label}`
+            : `Legal process · ${child.label}`,
+        keywords: `${item.label} ${child.label} ${child.section ?? ''}`,
+        page: child.page,
+        section: child.section,
+        icon: item.label === 'About' ? CircleUserRound : FileText,
+      })) ?? [],
+  ),
+  {
+    label: 'Legal Process',
+    detail: 'Virtual or in-person meetings',
+    keywords: 'legal process virtual in person consultation',
+    page: 'legal-process',
+    icon: FileText,
   },
   {
     label: 'Legal Insights',
     detail: 'Read latest updates',
     keywords: articles.map((article) => article.title).join(' '),
-    page: 'insights' as Page,
+    page: 'insights',
     icon: FileText,
   },
   {
     label: 'Get Legal Help',
     detail: 'Start your case',
     keywords: 'consultation advice legal matter',
-    page: 'help' as Page,
+    page: 'help',
     icon: ShieldCheck,
   },
   {
     label: 'Contact Us',
     detail: 'Get in touch',
     keywords: 'Kigali phone email office',
-    page: 'contact' as Page,
+    page: 'contact',
     icon: Mail,
   },
 ];
@@ -58,14 +87,15 @@ const choices = [
 export default function WelcomeOverlay({ onClose, onNavigate }: WelcomeOverlayProps) {
   const [query, setQuery] = useState('');
   const results = choices.filter((choice) =>
-    `${choice.label} ${choice.detail} ${choice.keywords}`
-      .toLowerCase()
-      .includes(query.toLowerCase()),
+    `${choice.label} ${choice.detail} ${choice.keywords}`.toLowerCase().includes(query.toLowerCase()),
   );
   return (
     <div className="welcome-overlay" role="dialog" aria-label="Moussa Advocates navigation">
       <div className="overlay-top">
-        <Logo light />
+        <div>
+          <Logo light />
+          <small className="overlay-registration">Firm Registration No. SYBELLA-0001-000-PERFECT</small>
+        </div>
         <button onClick={onClose} aria-label="Close menu">
           <X size={21} />
         </button>
@@ -86,8 +116,12 @@ export default function WelcomeOverlay({ onClose, onNavigate }: WelcomeOverlayPr
           </button>
         </label>
         <div className="overlay-option-grid">
-          {results.map(({ label, detail, page, icon: Icon }) => (
-            <button className="overlay-option" key={label} onClick={() => onNavigate(page)}>
+          {results.map(({ label, detail, page, section, icon: Icon }) => (
+            <button
+              className="overlay-option"
+              key={label}
+              onClick={() => onNavigate(page, section)}
+            >
               <Icon size={17} />
               <strong>{label}</strong>
               <small>{detail}</small>

@@ -18,6 +18,7 @@ export default function Footer({ onNavigate }: FooterProps) {
       <div className="footer-links">
         <button onClick={() => onNavigate('services')}>Services</button>
         <button onClick={() => onNavigate('about')}>About</button>
+        <button onClick={() => onNavigate('legal-process')}>Legal Process</button>
         <button onClick={() => onNavigate('insights')}>Insights</button>
         <button onClick={() => onNavigate('help')}>Legal Help</button>
         <button onClick={() => onNavigate('contact')}>Contact</button>
@@ -34,10 +35,16 @@ export default function Footer({ onNavigate }: FooterProps) {
         </a>
       </div>
       <small className="footer-bottom">
-        © 2026 Moussa Advocates · Built by{' '}
-        <a href="https://sybellasystems.com" target="_blank" rel="noreferrer">
-          Sybella Systems
-        </a>
+        <span className="legal-disclaimer">
+          Legal disclaimer: Website content is general information, not legal advice, and does not
+          create an advocate-client relationship. Seek advice on your specific circumstances.
+        </span>
+        <span>
+          © 2026 Moussa Advocates · Built by{' '}
+          <a href="https://sybellasystems.co.rw" target="_blank" rel="noreferrer">
+            Sybella Systems
+          </a>
+        </span>
       </small>
     </footer>
   );

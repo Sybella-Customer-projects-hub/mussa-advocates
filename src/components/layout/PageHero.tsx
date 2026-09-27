@@ -6,7 +6,7 @@ interface PageHeroProps {
   title: string;
   subtitle: string;
   image?: string;
-  onNavigate: (page: Page) => void;
+  onNavigate: (page: Page, section?: string) => void;
   onOpenMenu: () => void;
 }
 

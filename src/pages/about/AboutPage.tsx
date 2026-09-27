@@ -70,7 +70,7 @@ export default function AboutPage({
   onNavigate,
   onOpenMenu,
 }: {
-  onNavigate: (page: Page) => void;
+  onNavigate: (page: Page, section?: string) => void;
   onOpenMenu: () => void;
 }) {
   const [selected, setSelected] = useState(0);
@@ -85,17 +85,14 @@ export default function AboutPage({
 
   return (
     <main className="about-page">
-      <section className="about-intro">
+      <section className="about-intro" id="overview">
         <TopNav page="about" onNavigate={onNavigate} onOpenMenu={onOpenMenu} light />
         <div className="about-intro-copy">
           <p className="kicker">Moussa Advocates · Kigali, Rwanda</p>
           <h1>
             Good counsel starts with a better <em>conversation.</em>
           </h1>
-          <p>
-            Five questions. Five answers. A closer look at the people and principles behind the
-            work.
-          </p>
+          <p>Meet our team, explore our services and learn about our mission, vision, location and standards of conduct.</p>
           <a className="about-scroll" href="#about-stories">
             Explore our story <ArrowDown size={14} />
           </a>
@@ -108,7 +105,7 @@ export default function AboutPage({
             <p className="kicker">Take a closer look</p>
             <h2>What would you like to know?</h2>
           </div>
-          <p>Select a question, then choose when you are ready to see our answer.</p>
+          <p>Explore how we work, what guides our practice and the team behind it.</p>
         </div>
         <div className="story-layout">
           <div className="story-menu" role="tablist" aria-label="About Moussa Advocates">
@@ -181,7 +178,36 @@ export default function AboutPage({
         </div>
       </section>
 
-      <section className="about-team">
+      <section className="about-principles" aria-label="Our mission and vision">
+        <article id="mission">
+          <p className="kicker">Our mission</p>
+          <h2>Make legal processes clear, practical and human.</h2>
+          <p>We help people and organisations understand their options and move forward with confidence.</p>
+        </article>
+        <article id="vision">
+          <p className="kicker">Our vision</p>
+          <h2>A community where everyone can navigate the law with confidence.</h2>
+          <p>We work toward a more accessible, trusted and responsive experience of legal support in Rwanda.</p>
+        </article>
+      </section>
+
+      <section className="about-details" aria-label="Our location and conduct">
+        <article id="location">
+          <p className="kicker">Location</p>
+          <h2>Kigali, Rwanda.</h2>
+          <p>We meet clients in Kigali and can discuss the best way to connect when you get in touch.</p>
+          <a href="https://maps.google.com/?q=Kigali,Rwanda" target="_blank" rel="noreferrer">
+            Find us in Kigali <ArrowRight size={13} />
+          </a>
+        </article>
+        <article id="conduct">
+          <p className="kicker">Conduct</p>
+          <h2>Integrity in every interaction.</h2>
+          <p>We approach each matter with care, confidentiality, respect and clear communication, and explain the next steps before moving forward.</p>
+        </article>
+      </section>
+
+      <section className="about-team" id="team">
         <div className="about-section-heading">
           <div>
             <p className="kicker">Meet the team</p>

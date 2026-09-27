@@ -8,12 +8,14 @@ import ContactPage from './pages/contact/ContactPage';
 import HelpPage from './pages/help/HelpPage';
 import ServiceDetailPage from './pages/service-detail/ServiceDetailPage';
 import ArticlePage from './pages/article/ArticlePage';
+import LegalProcessPage from './pages/legal-process/LegalProcessPage';
 import WelcomeOverlay from './components/navigation/WelcomeOverlay';
 
 export default function App() {
   const [page, setPage] = useState<Page>('home');
   const [menuOpen, setMenuOpen] = useState(false);
   const [article, setArticle] = useState<Article | null>(null);
+  const [pendingSection, setPendingSection] = useState<string | null>(null);
 
   useEffect(() => {
     // Articles are opened from list components without coupling those components to the app router.
@@ -28,9 +30,18 @@ export default function App() {
     return () => window.removeEventListener('moussa-article', handleArticle);
   }, [page, article]);
 
-  const navigate = (nextPage: Page) => {
+  useEffect(() => {
+    if (pendingSection) {
+      document.getElementById(pendingSection)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [page, pendingSection]);
+
+  const navigate = (nextPage: Page, section?: string) => {
     setMenuOpen(false);
     setPage(nextPage);
+    setPendingSection(section ?? null);
   };
 
   const onOpenMenu = () => setMenuOpen(true);
@@ -41,6 +52,8 @@ export default function App() {
       <AboutPage onNavigate={navigate} onOpenMenu={onOpenMenu} />
     ) : page === 'services' ? (
       <ServicesPage onNavigate={navigate} onOpenMenu={onOpenMenu} />
+    ) : page === 'legal-process' ? (
+      <LegalProcessPage onNavigate={navigate} onOpenMenu={onOpenMenu} />
     ) : page === 'insights' ? (
       <InsightsPage
         onNavigate={navigate}
