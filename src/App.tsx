@@ -1,7 +1,13 @@
 import { useEffect, useState } from 'react';
-import { type Article, type Page } from './data/siteContent';
+import {
+  aboutSubsections,
+  type AboutDetailPage as AboutDetailPageType,
+  type Article,
+  type Page,
+} from './data/siteContent';
 import HomePage from './pages/home/HomePage';
 import AboutPage from './pages/about/AboutPage';
+import AboutDetailPage from './pages/about/AboutDetailPage';
 import ServicesPage from './pages/services/ServicesPage';
 import InsightsPage from './pages/insights/InsightsPage';
 import ContactPage from './pages/contact/ContactPage';
@@ -10,6 +16,9 @@ import ServiceDetailPage from './pages/service-detail/ServiceDetailPage';
 import ArticlePage from './pages/article/ArticlePage';
 import LegalProcessPage from './pages/legal-process/LegalProcessPage';
 import WelcomeOverlay from './components/navigation/WelcomeOverlay';
+
+const isAboutDetailPage = (page: Page): page is AboutDetailPageType =>
+  aboutSubsections.some((subsection) => subsection.page === page);
 
 export default function App() {
   const [page, setPage] = useState<Page>('home');
@@ -26,13 +35,19 @@ export default function App() {
         ? 'Moussa Advocates'
         : page === 'article' && article
           ? `${article.title} | Moussa Advocates`
-          : `${page[0].toUpperCase() + page.slice(1)} | Moussa Advocates`;
+          : isAboutDetailPage(page)
+            ? `${aboutSubsections.find((item) => item.page === page)?.label} | Moussa Advocates`
+            : page === 'about'
+              ? 'About Moussa Advocates'
+              : `${page[0].toUpperCase() + page.slice(1)} | Moussa Advocates`;
     return () => window.removeEventListener('moussa-article', handleArticle);
   }, [page, article]);
 
   useEffect(() => {
     if (pendingSection) {
-      document.getElementById(pendingSection)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document
+        .getElementById(pendingSection)
+        ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     } else {
       window.scrollTo(0, 0);
     }
@@ -50,6 +65,8 @@ export default function App() {
       <HomePage onNavigate={navigate} onOpenMenu={onOpenMenu} />
     ) : page === 'about' ? (
       <AboutPage onNavigate={navigate} onOpenMenu={onOpenMenu} />
+    ) : isAboutDetailPage(page) ? (
+      <AboutDetailPage page={page} onNavigate={navigate} onOpenMenu={onOpenMenu} />
     ) : page === 'services' ? (
       <ServicesPage onNavigate={navigate} onOpenMenu={onOpenMenu} />
     ) : page === 'legal-process' ? (

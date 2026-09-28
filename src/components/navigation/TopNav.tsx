@@ -25,7 +25,11 @@ export default function TopNav({ page, onNavigate, onOpenMenu, light = false }: 
           {navItems.map((item) => (
             <div className="nav-group" key={item.label}>
               <button
-                className={page === item.page ? 'active' : ''}
+                className={
+                  page === item.page || (item.page === 'about' && page.startsWith('about-'))
+                    ? 'active'
+                    : ''
+                }
                 onClick={() => onNavigate(item.page)}
                 aria-haspopup={item.children ? 'true' : undefined}
               >
@@ -34,10 +38,7 @@ export default function TopNav({ page, onNavigate, onOpenMenu, light = false }: 
               {item.children && (
                 <div className="nav-dropdown" role="group" aria-label={`${item.label} links`}>
                   {item.children.map((child) => (
-                    <button
-                      key={child.label}
-                      onClick={() => onNavigate(child.page, child.section)}
-                    >
+                    <button key={child.label} onClick={() => onNavigate(child.page, child.section)}>
                       {child.label}
                     </button>
                   ))}

@@ -1,6 +1,12 @@
 export type Page =
   | 'home'
   | 'about'
+  | 'about-profile'
+  | 'about-practice'
+  | 'about-mission'
+  | 'about-vision'
+  | 'about-location'
+  | 'about-conduct'
   | 'services'
   | 'legal-process'
   | 'insights'
@@ -23,6 +29,45 @@ export interface Article {
   body: string;
 }
 
+export type AboutDetailPage = Extract<Page, `about-${string}`>;
+
+export const aboutSubsections: {
+  label: string;
+  page: AboutDetailPage;
+  description: string;
+}[] = [
+  {
+    label: 'Professional Profile',
+    page: 'about-profile',
+    description: 'Meet Moussa Rwabukumba and learn about his professional focus.',
+  },
+  {
+    label: 'Practice Areas & Services',
+    page: 'about-practice',
+    description: 'Explore corporate, commercial, banking and other legal services.',
+  },
+  {
+    label: 'Our Mission',
+    page: 'about-mission',
+    description: 'The purpose that guides our work with clients.',
+  },
+  {
+    label: 'Our Vision',
+    page: 'about-vision',
+    description: 'The kind of legal support we want to make possible.',
+  },
+  {
+    label: 'Location',
+    page: 'about-location',
+    description: 'Learn about our Kigali base and how to connect.',
+  },
+  {
+    label: 'Professional Conduct',
+    page: 'about-conduct',
+    description: 'Our commitment to careful, clear and respectful legal work.',
+  },
+];
+
 export const images = {
   hero:
     'https://images.pexels.com/photos/6077797/pexels-photo-6077797.jpeg?' +
@@ -43,15 +88,7 @@ export const navItems: NavItem[] = [
   {
     label: 'About',
     page: 'about',
-    children: [
-      { label: 'Team', page: 'about', section: 'team' },
-      { label: 'Services', page: 'services' },
-      { label: 'Overview', page: 'about', section: 'overview' },
-      { label: 'Mission', page: 'about', section: 'mission' },
-      { label: 'Vision', page: 'about', section: 'vision' },
-      { label: 'Location', page: 'about', section: 'location' },
-      { label: 'Conduct', page: 'about', section: 'conduct' },
-    ],
+    children: aboutSubsections.map(({ label, page }) => ({ label, page })),
   },
   {
     label: 'Legal Process',
